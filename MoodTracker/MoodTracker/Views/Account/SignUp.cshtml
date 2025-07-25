@@ -1,0 +1,68 @@
+@model SignUpViewModel
+
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-lg rounded-3 custom-card">
+        <div class="card-body text-center">
+            <div class="mb-4">
+                <div class="logo-circle mx-auto d-flex justify-content-center align-items-center"
+                     style="font-size: 60px">
+                    <i class="fa-solid fa-heart-pulse" style="color: #B197FC;"></i>
+                </div>
+            </div>
+            <h3 class="card-title mb-2" style="color: blueviolet">Daily Mood Tracker</h3>
+            <p class="card-text text-muted mb-4">Welcome to your personal mood companion</p>
+
+            <form id="signUpForm" method="post" asp-action="SignUp" asp-controller="Account">
+
+                <div class="text-danger" asp-validation-summary="All"></div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="FullName" class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" asp-for="FullName" name="fullName"
+                           placeholder="Enter your name"/>
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-3 text-start">
+                    <label asp-for="Email" class="form-label">Email *</label>
+                    <input type="email" class="form-control" asp-for="Email" name="email"
+                           placeholder="Enter your email"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3 text-start">
+                    <label asp-for="TrustedPersonsEmail" class="form-label">Trusted Persons Email *</label>
+                    <input type="email" class="form-control" asp-for="TrustedPersonsEmail" name="trustedPersonsEmail"
+                           placeholder="Enter trusted persons email"/>
+                    <span asp-validation-for="TrustedPersonsEmail" class="text-danger"></span>
+                </div>
+                <div class="mb-3 text-start">
+                    <label asp-for="TrustedPersonsNumber" class="form-label">Trusted Persons Number *</label>
+                    <input class="form-control" asp-for="TrustedPersonsNumber" name="trustedPersonsNumber"
+                           placeholder="Enter trusted persons number"/>
+                    <span asp-validation-for="TrustedPersonsNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3 text-start">
+                    <label asp-for="Password" class="form-label">Password *</label>
+                    <input type="password" class="form-control" asp-for="Password" name="password"
+                           placeholder="Enter password"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3 text-start">
+                    <label asp-for="ConfirmPassword" class="form-label">Confirm password *</label>
+                    <input type="password" class="form-control" asp-for="ConfirmPassword" name="confirmPassword"
+                           placeholder="Enter confirm password"/>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn btn-primary custom-btn" style="background: blueviolet">Sign Up
+                    </button>
+                </div>
+                <p class="text-center text-muted">Already have an account?<a asp-action="SignIn" asp-controller="Account" class="text-decoration-none"> Sign
+                        In</a></p>
+            </form>
+        </div>
+    </div>
+</div>

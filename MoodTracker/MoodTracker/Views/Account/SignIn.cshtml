@@ -1,0 +1,39 @@
+@model SignInViewModel
+@{
+    ViewBag.Title = "Sign In";
+}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-lg rounded-3 custom-card">
+        <div class="card-body text-center">
+            <div class="mb-4">
+                <div class="logo-circle mx-auto d-flex justify-content-center align-items-center"
+                     style="font-size: 60px">
+                    <i class="fa-solid fa-heart-pulse" style="color: #B197FC;"></i>
+                </div>
+            </div>
+            <h3 class="card-title mb-2" style="color: blueviolet">Daily Mood Tracker</h3>
+            <p class="card-text text-muted mb-4">Welcome back to your personal mood companion</p>
+
+            <form id="signInForm" method="post" asp-action="SignIn" asp-controller="Account">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <div class="mb-3 text-start">
+                    <label asp-for="Email" class="form-label">Email *</label>
+                    <input type="email" class="form-control" asp-for="Email" name="email" placeholder="Enter your email"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-4 text-start">
+                    <label asp-for="Password" class="form-label">Password *</label>
+                    <input type="password" class="form-control" asp-for="Password" name="password" placeholder="Enter your password"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn btn-primary custom-btn" style="background: blueviolet">Sign In</button>
+                </div>
+                <p class="text-center text-muted">Don't have an account?
+                    <a asp-action="SignIn" asp-controller="Account" class="text-decoration-none">Sign
+                        up</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+
