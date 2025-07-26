@@ -22,6 +22,93 @@ body {
 }
 
 .navbar-brand {
+  letter-spacing: 0.04rem;
   font-size: 1.25rem;
-  letter-spacing: 0.05rem;
+}
+
+
+.nav-link {
+  font-size: 1rem;
+}
+
+/* Custom button gradients */
+.custom-submit-btn,
+.custom-new-entry-btn {
+  background: linear-gradient(to right, #8c6fe4, #bc6fe4); /* Purple gradient */
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 20px;
+  font-weight: bold;
+  color: white;
+  transition: opacity 0.2s ease;
+}
+
+.custom-submit-btn:hover,
+.custom-new-entry-btn:hover {
+  opacity: 0.9;
+  color: white; /* Ensure text color remains white on hover */
+}
+
+/* Quote icon styling */
+.custom-quote-icon {
+  color: blueviolet; /* Specific purple color */
+  font-size: 3.5rem; /* Larger icon size */
+}
+
+/* Adjust card width for consistency */
+.custom-card-width {
+  max-width: 700px; /* Max width for the cards */
+  width: 100%;
+}
+
+/* Validation error styling */
+.text-danger.small {
+  font-size: 0.875em; /* Bootstrap's small font size */
+  margin-top: 0.25rem; /* Small margin above text */
+  display: block; /* Ensure it takes its own line */
+}
+
+/* Custom button gradient */
+.custom-purple-btn {
+  width: 250px;
+  text-align: center;
+  background: linear-gradient(to right, #8c6fe4, #bc6fe4); /* Purple gradient */
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 20px;
+  font-weight: bold;
+  color: white;
+  transition: opacity 0.2s ease;
+}
+
+.custom-purple-btn:hover {
+  opacity: 0.9;
+  color: white; /* Ensure text color remains white on hover */
+}
+
+/* Custom highlight for new password input */
+.custom-highlight-input {
+  background-color: #fcf8e3; /* Light yellow background */
+  border-color: #faebcc; /* Light yellow border */
+}
+
+/* Custom warning alert styling */
+.custom-warning-alert {
+  background-color: #fff3cd; /* Light yellow background */
+  border-color: #ffeeba; /* Light yellow border */
+  color: #664d03; /* Darker text color */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Padding */
+}
+
+.custom-warning-icon {
+  color: #ffc107; /* Yellow icon color */
+  font-size: 1.5rem; /* Larger icon */
+}
+
+/* Validation message styling */
+.text-danger.small {
+  font-size: 0.875em; /* Bootstrap's small font size */
+  margin-top: 0.25rem; /* Small margin above text */
+  display: block; /* Ensure it takes its own line */
 }

@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker
 build_property._RazorSourceGeneratorDebug = 
 
+[/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/Views/Account/ChangeInformation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9DaGFuZ2VJbmZvcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/Views/Account/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Qcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/Views/Account/SignIn.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9TaWduSW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -28,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/Views/Home/MoodTracker.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Nb29kVHJhY2tlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/Views/Home/Privacy.cshtml]

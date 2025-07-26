@@ -1,8 +1,87 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "New Entry";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-4">
+    <div id="journalEntrySection" class="mb-5">
+        <h2 class="fw-bold text-center mb-2">How are you feeling today?</h2>
+        <p class="text-muted text-center mb-4">Take a moment to reflect on your thoughts and emotions</p>
+
+        <div class="card shadow-sm p-4 mx-auto custom-card-width">
+            <div class="card-body">
+                <form id="journalEntryForm">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelect" aria-label="Select your Mood">
+                            <option selected>Select Your Mood</option>
+                            <option value="1">Happy</option>
+                            <option value="2">Sad</option>
+                            <option value="3">Angry</option>
+                        </select>
+                        <label for="floatingSelect">Mood right now</label>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="journalText" name="journalText" rows="6" placeholder="Enter your thoughts here..." required data-val="true" data-val-required="Please enter your journal entry."></textarea>
+                        <span class="text-danger small" data-valmsg-for="journalText" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
+                        <div class="text-muted small d-flex align-items-center mb-2 mb-sm-0">
+                            <i class="fa-regular fa-calendar-days me-1"></i> <span id="currentDate"></span>
+                            <i class="fa-regular fa-clock ms-3 me-1"></i> <span id="currentTime"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary custom-submit-btn">
+                            <i class="fa-solid fa-paper-plane me-2"></i> Submit Entry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Entry Saved Confirmation Section (Initially Hidden) -->
+    <div id="entrySavedConfirmation" class="mb-5">
+        <div class="card shadow-sm p-4 mx-auto text-center custom-card-width">
+            <div class="card-body">
+                <div class="mb-3">
+                    <i class="fa-solid fa-quote-right custom-quote-icon"></i>
+                </div>
+                <p class="lead mb-3">Every day is a new beginning. Take a deep breath, smile, and start again.</p>
+                <p class="text-muted small mb-4">Your entry has been saved to your journal history</p>
+                <button type="button" class="btn btn-primary custom-new-entry-btn">
+                    <i class="fa-solid fa-plus me-2"></i> New Entry
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Reflections Section -->
+    <div class="mb-5">
+        <h3 class="fw-bold mb-4 text-center">Recent Reflections</h3>
+        <div class="card shadow-sm p-4 mx-auto custom-card-width">
+            <div class="card-body">
+                <!-- Example of a single reflection entry -->
+                <div class="d-flex align-items-start mb-3 pb-3 border-bottom">
+                    <div class="me-3 text-muted small text-nowrap flex-shrink-0">
+                        <i class="fa-regular fa-calendar-days me-1"></i> Jul 22, 2025<br>
+                        <i class="fa-regular fa-clock me-1"></i> 10:30 AM
+                    </div>
+                    <div>
+                        <p class="mb-0">"Feeling much better after a good night's sleep. Ready to tackle the day!"</p>
+                    </div>
+                </div>
+                <!-- Another example -->
+                <div class="d-flex align-items-start mb-3 pb-3 border-bottom">
+                    <div class="me-3 text-muted small text-nowrap flex-shrink-0">
+                        <i class="fa-regular fa-calendar-days me-1"></i> Jun 28, 2025<br>
+                        <i class="fa-regular fa-clock me-1"></i> 09:00 AM
+                    </div>
+                    <div>
+                        <p class="mb-0">"Had a productive morning, managed to finish all my tasks ahead of schedule. Feeling accomplished!"</p>
+                    </div>
+                </div>
+                <!-- Add more reflection entries here, ideally dynamically loaded -->
+                <p class="text-muted text-center mt-3">No more recent reflections. Make an entry!</p>
+            </div>
+        </div>
+    </div>
 </div>
+

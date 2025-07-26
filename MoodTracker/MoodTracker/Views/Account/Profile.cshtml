@@ -1,0 +1,57 @@
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-2">Profile Settings</h2>
+    <p class="text-muted mb-4">Manage your account and trusted person information</p>
+
+    <div class="card shadow-sm p-4 h-100">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3">Account Information</h5>
+            @if (@TempData["SuccessMessage"] != null)
+            {
+                <div class="text-success">@TempData["SuccessMessage"]</div>
+            }
+            <div class="mb-4">
+                <label for="fullName" class="form-label text-muted small mb-1">Full Name</label>
+                <input type="email" class="form-control" id="fullName" value="@ViewBag.FullName" readonly>
+            </div>
+            <div class="mb-4">
+                <label for="emailAddress" class="form-label text-muted small mb-1">Email Address</label>
+                <input type="email" class="form-control" id="emailAddress" value="@ViewBag.Email" readonly>
+                <small class="form-text text-muted">Email cannot be changed after registration</small>
+            </div>
+            <div class="mb-4">
+                <label for="userName" class="form-label text-muted small mb-1">Username</label>
+                <input type="email" class="form-control" id="userName" value="@ViewBag.UserName" readonly>
+                <small class="form-text text-muted">Username cannot be changed after registration</small>
+            </div>
+            <div class="mb-4">
+                <label for="trustedPersonsEmail" class="form-label text-muted small mb-1">Trusted Persons
+                    Email</label>
+                <input type="email" class="form-control" id="trustedPersonsEmail"
+                       value="@ViewBag.TrustedPersonsEmail"
+                       readonly>
+            </div>
+            <div class="mb-4">
+                <label for="trustedPersonsNumber" class="form-label text-muted small mb-1">Trusted Persons
+                    Number</label>
+                <input type="email" class="form-control" id="trustedPersonsNumber"
+                       value="@ViewBag.TrustedPersonsNumber"
+                       readonly>
+            </div>
+            <div class="mb-4">
+                <label for="gender" class="form-label text-muted small mb-1">Gender</label>
+                <input type="email" class="form-control" id="gender" value="@ViewBag.Gender" readonly>
+            </div>
+            <div class="mb-4">
+                <label for="birthday" class="form-label text-muted small mb-1">Birthday</label>
+                <input type="email" class="form-control" id="birthday" value="@ViewBag.Birthday" readonly>
+            </div>
+        </div>
+        <a class="btn custom-purple-btn m-auto" asp-action="ChangeInformation" asp-controller="Account">Update Information</a>
+    </div>
+</div>

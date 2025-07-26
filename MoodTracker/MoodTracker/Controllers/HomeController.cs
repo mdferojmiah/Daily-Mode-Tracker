@@ -14,7 +14,15 @@ public class HomeController : Controller
     }
 
     [Authorize]
+    [HttpGet]
     public IActionResult Index()
+    {
+        return View();
+    }
+    
+    [HttpGet]
+    [Authorize]
+    public IActionResult MoodTracker()
     {
         return View();
     }

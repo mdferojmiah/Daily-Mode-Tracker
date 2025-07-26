@@ -1,4 +1,8 @@
 ﻿@inject SignInManager<User> SignInManager
+@{
+    var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +13,21 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/MoodTracker.styles.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold text-dark" asp-area="" asp-controller="Home" asp-action="Index">Daily Mood Tracker</a>
-            
+            <div class="ms-3">
+                <a class="navbar-brand fw-bold" style="color: blueviolet;" asp-area="" asp-controller="Home"
+                   asp-action="Index">
+                    <i class="fa-solid fa-heart-pulse" style="color: blueviolet; font-size: 35px;"></i>
+                    Daily Mood Tracker
+                </a>
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,11 +38,14 @@
                 {
                     <ul class="navbar-nav align-items-center gap-3">
                         <li class="nav-item">
-                            <p class="nav-link text-dark mt-2">@User.Identity?.Name</p>
+                            <p class="nav-link text-dark mt-3"><i class="fa-solid fa-user"></i> @User.Identity?.Name</p>
                         </li>
                         <li class="nav-item">
                             <form method="post" asp-action="Logout" asp-controller="Account">
-                                <button class="btn" type="submit" style="background: blueviolet;">Log Out</button>
+                                <button class="btn" type="submit"
+                                        style="background: linear-gradient(to right, #8c6fe4, #bc6fe4); color: white; font-weight: bold;">
+                                    Log Out <i class="fa-solid fa-right-from-bracket"></i>
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -43,7 +57,8 @@
                             <a class="nav-link text-dark" asp-controller="Account" asp-action="SignIn">Sign In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-primary text-white px-4" style="background-color: blueviolet; border: none;"
+                            <a class="btn btn-primary text-white px-4"
+                               style="background: linear-gradient(to right, #8c6fe4, #bc6fe4); border: none;"
                                asp-controller="Account" asp-action="SignUp">Sign Up</a>
                         </li>
                     </ul>
@@ -52,8 +67,77 @@
         </div>
     </nav>
 </header>
-<div class="container">
-    <main role="main" class="pb-3">
+
+<div class="main-wrapper">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <nav id="sidebar" class="sidebar d-none d-md-flex">
+            <ul class="nav flex-column mb-auto">
+                <li class="nav-item my-toggle-btn">
+                    <a class="nav-link text-dark @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
+                       asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-pen-to-square me-2"></i> New Entry
+                    </a>
+                </li>
+                <li class="nav-item my-toggle-btn">
+                    <a class="nav-link text-dark @(currentController == "Home" && currentAction == "MoodTracker" ? "active" : "")"
+                       asp-area="" asp-controller="Home" asp-action="MoodTracker">
+                        <i class="fa-solid fa-chart-line me-2"></i> Mood Tracker
+                    </a>
+                </li>
+                <li class="nav-item my-toggle-btn">
+                    <a class="nav-link text-dark @(currentController == "Account" && currentAction == "Profile" ? "active" : "")"
+                       asp-area="" asp-controller="Account" asp-action="Profile">
+                        <i class="fa-solid fa-user me-2"></i> Profile
+                    </a>
+                </li>
+            </ul>
+            
+
+            <div class="mt-auto pt-3">
+                <p class="journal-history-title">Journal History</p>
+                <p class="previous-days-title">Today</p>
+                <div class="journal-entry">
+                    <small>03:51 AM</small>
+                    today my mood is off
+                </div>
+
+                <p class="previous-days-title">Previous Days</p>
+                <ul class="journal-history-list">
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        it's been a boring day as I failed in my quiz
+                    </li>
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        I want to die
+                    </li>
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        I want to die now...... bye bye
+                    </li>
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        I want to die now...... bye bye
+                    </li>
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        I want to die
+                    </li>
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        I want to die
+                    </li>
+                    <li class="journal-entry">
+                        <small>Jun 23</small>
+                        i am happy
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    }
+
+    <main role="main" class="content-area pb-3">
         @RenderBody()
     </main>
 </div>

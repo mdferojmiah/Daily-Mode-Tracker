@@ -1,0 +1,69 @@
+@using MoodTracker.Models.Enums
+@model ChangeInformationViewModel
+
+@{
+    ViewBag.Title = "Change Information";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-2">Update Information</h2>
+    <p class="text-muted mb-4">Update your account and trusted person information</p>
+
+    <form method="post" asp-action="ChangeInformation" asp-controller="Account">
+        <div class="card shadow-sm p-4 h-100">
+            <div class="card-body">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <div class="mb-4">
+                    <label asp-for="FullName" class="form-label text-muted small mb-1">Full Name</label>
+                    <input asp-for="FullName" class="form-control" value="@Model.FullName"/>
+                    <span class="text-danger" asp-validation-for="FullName"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="TrustedPersonsEmail" class="form-label text-muted small mb-1">Trusted Persons Email</label>
+                    <input asp-for="TrustedPersonsEmail" class="form-control" value="@Model.TrustedPersonsEmail"/>
+                    <span class="text-danger" asp-validation-for="TrustedPersonsEmail"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="TrustedPersonsNumber" class="form-label text-muted small mb-1">Trusted Persons Number</label>
+                    <input asp-for="TrustedPersonsNumber" class="form-control" value="@Model.TrustedPersonsNumber"/>
+                    <span class="text-danger" asp-validation-for="TrustedPersonsNumber"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Gender" class="form-label text-muted small mb-1">Gender</label>
+                    <select asp-for="Gender" class="form-select" aria-label="Gender">
+                        
+                        @foreach (var gender in Enum.GetNames(typeof(GenderOptions)))
+                        {
+                            @if (Model.Gender.ToString() == @gender)
+                            {
+                                <option value="@Model.Gender" selected="selected">@Model.Gender</option>
+                            }
+                            else
+                            {
+                                <option value="@gender">@gender</option>
+                            }
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="Gender"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Birthday" class="form-label text-muted small mb-1">Birthday</label>
+                    <input asp-for="Birthday" class="form-control"/>
+                    <span class="text-danger" asp-validation-for="Birthday"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="NewPassword" class="form-label text-muted small mb-1">New Password</label>
+                    <input asp-for="NewPassword" class="form-control"/>
+                    <span class="text-danger" asp-validation-for="NewPassword"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="ConfirmNewPassword" class="form-label text-muted small mb-1">Confirm Password</label>
+                    <input asp-for="ConfirmNewPassword" class="form-control"/>
+                    <span class="text-danger" asp-validation-for="ConfirmNewPassword"></span>
+                </div>
+            </div>
+            <button class="btn custom-purple-btn m-auto">Change Information</button>
+        </div>
+    </form>
+</div>
+
