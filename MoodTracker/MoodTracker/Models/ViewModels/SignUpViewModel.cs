@@ -9,6 +9,10 @@ public class SignUpViewModel
     [StringLength(20, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 20 characters")]
     public string? FullName { get; set; }
     
+    [Display(Name = "Trusted Persons Name")]
+    [StringLength(20, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 20 characters")]
+    public string? TrustedPersonsName { get; set; }
+    
     [Required(ErrorMessage = "Trusted Persons Email is required")]
     [Display(Name = "Trusted Persons Email")]
     [EmailAddress]

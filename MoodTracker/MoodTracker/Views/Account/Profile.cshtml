@@ -17,7 +17,7 @@
             }
             <div class="mb-4">
                 <label for="fullName" class="form-label text-muted small mb-1">Full Name</label>
-                <input type="email" class="form-control" id="fullName" value="@ViewBag.FullName" readonly>
+                <input type="text" class="form-control" id="fullName" value="@ViewBag.FullName" readonly>
             </div>
             <div class="mb-4">
                 <label for="emailAddress" class="form-label text-muted small mb-1">Email Address</label>
@@ -30,26 +30,24 @@
                 <small class="form-text text-muted">Username cannot be changed after registration</small>
             </div>
             <div class="mb-4">
-                <label for="trustedPersonsEmail" class="form-label text-muted small mb-1">Trusted Persons
-                    Email</label>
-                <input type="email" class="form-control" id="trustedPersonsEmail"
-                       value="@ViewBag.TrustedPersonsEmail"
-                       readonly>
+                <label for="trustedPersonsName" class="form-label text-muted small mb-1">Trusted Persons Name</label>
+                <input type="text" class="form-control" id="trustedPersonsName" value="@ViewBag.TrustedPersonsName" readonly>
             </div>
             <div class="mb-4">
-                <label for="trustedPersonsNumber" class="form-label text-muted small mb-1">Trusted Persons
-                    Number</label>
-                <input type="email" class="form-control" id="trustedPersonsNumber"
-                       value="@ViewBag.TrustedPersonsNumber"
-                       readonly>
+                <label for="trustedPersonsEmail" class="form-label text-muted small mb-1">Trusted Persons Email</label>
+                <input type="email" class="form-control" id="trustedPersonsEmail" value="@ViewBag.TrustedPersonsEmail" readonly>
+            </div>
+            <div class="mb-4">
+                <label for="trustedPersonsNumber" class="form-label text-muted small mb-1">Trusted Persons Number</label>
+                <input type="number" class="form-control" id="trustedPersonsNumber" value="@ViewBag.TrustedPersonsNumber" readonly>
             </div>
             <div class="mb-4">
                 <label for="gender" class="form-label text-muted small mb-1">Gender</label>
-                <input type="email" class="form-control" id="gender" value="@ViewBag.Gender" readonly>
+                <input type="text" class="form-control" id="gender" value="@ViewBag.Gender" readonly>
             </div>
             <div class="mb-4">
                 <label for="birthday" class="form-label text-muted small mb-1">Birthday</label>
-                <input type="email" class="form-control" id="birthday" value="@ViewBag.Birthday" readonly>
+                <input type="text" class="form-control" id="birthday" value="@ViewBag.Birthday.ToString("D")" readonly>
             </div>
         </div>
         <a class="btn custom-purple-btn m-auto" asp-action="ChangeInformation" asp-controller="Account">Update Information</a>

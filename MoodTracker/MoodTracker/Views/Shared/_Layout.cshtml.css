@@ -32,8 +32,13 @@ a {
 .my-toggle-btn .nav-link.active i {
   background: linear-gradient(to right, #8c6fe4, #bc6fe4); !important;
   color: white !important;
-  padding: 20px;
-  border-radius: 20px;
+  padding-left: 17px;
+  padding-right: 27px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  align-items: center;
+
 }
 
 /* Hover state for non-active links */

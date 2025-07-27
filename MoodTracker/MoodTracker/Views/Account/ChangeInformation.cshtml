@@ -19,6 +19,11 @@
                     <span class="text-danger" asp-validation-for="FullName"></span>
                 </div>
                 <div class="mb-4">
+                    <label asp-for="TrustedPersonsName" class="form-label text-muted small mb-1">Trusted Persons Name</label>
+                    <input asp-for="TrustedPersonsName" class="form-control" value="@Model.TrustedPersonsName"/>
+                    <span class="text-danger" asp-validation-for="TrustedPersonsName"></span>
+                </div>
+                <div class="mb-4">
                     <label asp-for="TrustedPersonsEmail" class="form-label text-muted small mb-1">Trusted Persons Email</label>
                     <input asp-for="TrustedPersonsEmail" class="form-control" value="@Model.TrustedPersonsEmail"/>
                     <span class="text-danger" asp-validation-for="TrustedPersonsEmail"></span>

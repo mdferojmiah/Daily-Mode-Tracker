@@ -214,3 +214,11 @@
 /home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/obj/Debug/net8.0/MoodTracker.pdb
 /home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/obj/Debug/net8.0/MoodTracker.genruntimeconfig.cache
 /home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/obj/Debug/net8.0/ref/MoodTracker.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Microsoft.Bcl.Memory.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/home/feroj/Code/Web-Development-Practice/Asp.NET/Daily-Mode-Tracker/MoodTracker/MoodTracker/bin/Debug/net8.0/Twilio.dll

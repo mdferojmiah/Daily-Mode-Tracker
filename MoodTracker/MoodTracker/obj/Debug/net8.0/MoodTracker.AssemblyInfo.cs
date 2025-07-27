@@ -11,10 +11,11 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("1586b710-e91c-40b5-9b2a-c6131eca4096")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("MoodTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eedb07fff198061519ed91f76949d2e2fa836784")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b82310f1006ab6668ef546d760e76b014441bad6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MoodTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MoodTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

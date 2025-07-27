@@ -76,62 +76,37 @@
                 <li class="nav-item my-toggle-btn">
                     <a class="nav-link text-dark @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
                        asp-area="" asp-controller="Home" asp-action="Index">
-                        <i class="fa-solid fa-pen-to-square me-2"></i> New Entry
+                        <i class="fa-solid fa-pen-to-square me-2 text-center"></i> New Entry
                     </a>
                 </li>
                 <li class="nav-item my-toggle-btn">
                     <a class="nav-link text-dark @(currentController == "Home" && currentAction == "MoodTracker" ? "active" : "")"
                        asp-area="" asp-controller="Home" asp-action="MoodTracker">
-                        <i class="fa-solid fa-chart-line me-2"></i> Mood Tracker
+                        <i class="fa-solid fa-chart-line me-2 text-center"></i> Mood Tracker
                     </a>
                 </li>
                 <li class="nav-item my-toggle-btn">
                     <a class="nav-link text-dark @(currentController == "Account" && currentAction == "Profile" ? "active" : "")"
                        asp-area="" asp-controller="Account" asp-action="Profile">
-                        <i class="fa-solid fa-user me-2"></i> Profile
+                        <i class="fa-solid fa-user me-2 text-center"></i> Profile
                     </a>
                 </li>
             </ul>
             
 
-            <div class="mt-auto pt-3">
-                <p class="journal-history-title">Journal History</p>
-                <p class="previous-days-title">Today</p>
-                <div class="journal-entry">
-                    <small>03:51 AM</small>
-                    today my mood is off
-                </div>
-
-                <p class="previous-days-title">Previous Days</p>
+            <div class="mt-5 pt-3">
+                <p class="journal-history-title">History</p>
                 <ul class="journal-history-list">
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        it's been a boring day as I failed in my quiz
-                    </li>
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        I want to die
-                    </li>
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        I want to die now...... bye bye
-                    </li>
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        I want to die now...... bye bye
-                    </li>
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        I want to die
-                    </li>
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        I want to die
-                    </li>
-                    <li class="journal-entry">
-                        <small>Jun 23</small>
-                        i am happy
-                    </li>
+                    @if (@ViewBag.LayoutMoodHistory != null)
+                    {
+                        @foreach (MoodEntry moodEntry in @ViewBag.LayoutMoodHistory)
+                        {
+                            <li class="journal-entry">
+                                <small>@moodEntry.Created.Date.ToString("D")</small>
+                                @moodEntry.Description
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </nav>
@@ -142,9 +117,9 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="border-top footer text-muted text-center">
     <div class="container">
-        &copy; 2025 - MoodTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2025 - MoodTracker - <a class="text-muted" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

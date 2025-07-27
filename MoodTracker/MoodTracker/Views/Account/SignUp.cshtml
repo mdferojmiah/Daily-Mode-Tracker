@@ -5,7 +5,7 @@
 }
 
 <div class="d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card p-4 shadow-lg rounded-3 custom-card">
+    <div class="card p-4 shadow-lg rounded-3 custom-card w-25">
         <div class="card-body text-center">
             <div class="mb-4">
                 <div class="logo-circle mx-auto d-flex justify-content-center align-items-center"
@@ -28,9 +28,15 @@
                 </div>
                 <div class="mb-3 text-start">
                     <label asp-for="Email" class="form-label">Email *</label>
-                    <input type="email" class="form-control" asp-for="Email" name="email"
+                    <input type="text" class="form-control" asp-for="Email" name="email"
                            placeholder="Enter your email"/>
                     <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3 text-start">
+                    <label asp-for="TrustedPersonsName" class="form-label">Trusted Persons Name *</label>
+                    <input type="text" class="form-control" asp-for="TrustedPersonsName" name="trustedPersonsName"
+                           placeholder="Enter trusted persons Name"/>
+                    <span asp-validation-for="TrustedPersonsName" class="text-danger"></span>
                 </div>
                 <div class="mb-3 text-start">
                     <label asp-for="TrustedPersonsEmail" class="form-label">Trusted Persons Email *</label>

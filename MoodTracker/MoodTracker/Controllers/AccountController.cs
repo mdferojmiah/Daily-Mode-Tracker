@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MoodTracker.Data;
 using MoodTracker.Models.Entities;
 using MoodTracker.Models.ViewModels;
 
@@ -9,11 +11,13 @@ public class AccountController : Controller
 {
     private UserManager<User> _userManager;
     private SignInManager<User> _signInManager;
+    private AppDbContext  _context;
 
-    public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
+    public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, AppDbContext context)
     {
         _signInManager = signInManager;
         _userManager = userManager;
+        _context = context;
     }
 
     //GET: account/signin
@@ -58,6 +62,7 @@ public class AccountController : Controller
             {
                 FullName = model.FullName,
                 Email = model.Email,
+                TrustedPersonsName = model.TrustedPersonsName,
                 TrustedPersonsEmail = model.TrustedPersonsEmail,
                 TrustedPersonsNumber = model.TrustedPersonsNumber,
                 UserName = model.Email
@@ -86,10 +91,17 @@ public class AccountController : Controller
         ViewBag.UserName = user!.UserName;
         ViewBag.FullName = user!.FullName;
         ViewBag.Email = user!.Email;
+        ViewBag.TrustedPersonsName = user!.TrustedPersonsName;
         ViewBag.TrustedPersonsEmail = user!.TrustedPersonsEmail;
         ViewBag.TrustedPersonsNumber = user!.TrustedPersonsNumber;
         ViewBag.Gender = user!.Gender;
         ViewBag.Birthday = user!.Birthday;
+        var recentMoodEntries = await _context.MoodEntries
+            .OrderByDescending(m => m.Created)
+            .Take(5)
+            .ToListAsync();
+        ViewBag.RecentMoodEntries = recentMoodEntries;
+        ViewBag.LayoutMoodHistory = recentMoodEntries;
         return View();
     }
     
@@ -106,11 +118,18 @@ public class AccountController : Controller
         var model = new ChangeInformationViewModel
         {
             FullName = user.FullName, 
+            TrustedPersonsName = user.TrustedPersonsName,
             TrustedPersonsEmail = user.TrustedPersonsEmail,
             TrustedPersonsNumber = user.TrustedPersonsNumber,
             Gender = user.Gender, 
             Birthday = user.Birthday
         };
+        var recentMoodEntries = await _context.MoodEntries
+            .OrderByDescending(m => m.Created)
+            .Take(5)
+            .ToListAsync();
+        ViewBag.RecentMoodEntries = recentMoodEntries;
+        ViewBag.LayoutMoodHistory = recentMoodEntries;
         return View(model);
     }
 
@@ -130,7 +149,7 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "User not found.");
             return View(model);
         }
-        
+        user.TrustedPersonsName = model.TrustedPersonsName;
         user.TrustedPersonsEmail = model.TrustedPersonsEmail;
         user.TrustedPersonsNumber = model.TrustedPersonsNumber;
         user.Gender = model.Gender;
@@ -176,6 +195,12 @@ public class AccountController : Controller
             await _signInManager.SignInAsync(user, isPersistent: true);
         }
         TempData["SuccessMessage"] = "Profile information updated successfully!";
+        var recentMoodEntries = await _context.MoodEntries
+            .OrderByDescending(m => m.Created)
+            .Take(5)
+            .ToListAsync();
+        ViewBag.RecentMoodEntries = recentMoodEntries;
+        ViewBag.LayoutMoodHistory = recentMoodEntries;
         return RedirectToAction("Profile", "Account");
     }
 

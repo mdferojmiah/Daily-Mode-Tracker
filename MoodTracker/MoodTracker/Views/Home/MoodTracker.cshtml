@@ -1,0 +1,82 @@
+@{
+    ViewBag.Title = "Dash Board";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-2">Mood Tracker</h2>
+    <p class="text-muted mb-4">Visualize your emotional journey and track your progress</p>
+
+    <!-- Top Statistics Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 h-100 d-flex align-items-center justify-content-between flex-row">
+                <div>
+                    <h5 class="fw-bold mb-1">Entries This Week</h5>
+                    <p class="fs-2 fw-bold mb-0">0</p>
+                </div>
+                <div class="icon-circle purple-bg">
+                    <i class="fa-solid fa-pen-to-square text-white"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 h-100 d-flex align-items-center justify-content-between flex-row">
+                <div>
+                    <h5 class="fw-bold mb-1">Consistency</h5>
+                    <p class="fs-2 fw-bold mb-0">0 <span class="text-muted fs-6">of 7 days</span></p>
+                </div>
+                <div class="icon-circle green-bg">
+                    <i class="fa-solid fa-calendar-check text-white"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 h-100 d-flex align-items-center justify-content-between flex-row">
+                <div>
+                    <h5 class="fw-bold mb-1">Dominant Mood</h5>
+                    <p class="fs-2 fw-bold mb-0">Neutral</p>
+                </div>
+                <div class="icon-circle yellow-bg">
+                    <i class="fa-solid fa-chart-line text-white"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weekly Mood Chart Section -->
+    <div class="card shadow-sm p-4 mb-5">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Weekly Mood Chart</h5>
+                <span class="text-muted small">Jul 10, 2025 - This Week</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="moodChart" width="800" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mood Scale Legend -->
+    <div class="card shadow-sm p-4 mb-5">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3">Mood Scale</h5>
+            <div class="d-flex flex-wrap gap-4">
+                <div class="mood-legend-item d-flex align-items-center">
+                    <span class="legend-dot happy-dot me-2"></span> Happy
+                </div>
+                <div class="mood-legend-item d-flex align-items-center">
+                    <span class="legend-dot neutral-dot me-2"></span> Neutral
+                </div>
+                <div class="mood-legend-item d-flex align-items-center">
+                    <span class="legend-dot anxious-dot me-2"></span> Anxious
+                </div>
+                <div class="mood-legend-item d-flex align-items-center">
+                    <span class="legend-dot sad-dot me-2"></span> Sad
+                </div>
+                <div class="mood-legend-item d-flex align-items-center">
+                    <span class="legend-dot crisis-dot me-2"></span> Crisis
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

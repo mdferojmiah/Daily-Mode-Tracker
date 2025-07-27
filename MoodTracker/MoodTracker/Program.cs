@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MoodTracker.Data;
 using MoodTracker.Models.Entities;
+using MoodTracker.ServiceContracts;
+using MoodTracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +14,24 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-builder.Services.AddIdentity<User, UserRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<User, UserRole>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = true;
+    })
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/SignIn";
 });
+string? baseUri = builder.Configuration.GetConnectionString("ZenQuoteUri");
+builder.Services.AddHttpClient("ZenQuoteAPI", client =>
+{
+    client.BaseAddress = new Uri(baseUri);
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 var app = builder.Build();
 

@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>1586b710-e91c-40b5-9b2a-c6131eca4096</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +16,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
+      <PackageReference Include="Twilio" Version="7.12.0" />
     </ItemGroup>
 
     <ItemGroup>

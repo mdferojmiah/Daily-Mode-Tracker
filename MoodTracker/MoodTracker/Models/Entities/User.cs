@@ -23,7 +23,11 @@ public class User: IdentityUser<Guid>
     [Phone]
     [DataType(DataType.PhoneNumber)]
     [StringLength(11, MinimumLength = 11, ErrorMessage = "Phone must be 11 characters")]
+    
     public string? TrustedPersonsNumber { get; set; }
+    [Display(Name = "Trusted Persons Name")]
+    [StringLength(20, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 20 characters")]
+    public string? TrustedPersonsName { get; set; }
     
     public GenderOptions?  Gender { get; set; }
     public DateTime? Birthday { get; set; }

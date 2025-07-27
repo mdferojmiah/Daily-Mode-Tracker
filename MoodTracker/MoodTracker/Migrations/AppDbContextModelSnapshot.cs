@@ -118,6 +118,28 @@ namespace MoodTracker.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MoodTracker.Models.Entities.MoodEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("Tag")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MoodEntries");
+                });
+
             modelBuilder.Entity("MoodTracker.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -179,6 +201,10 @@ namespace MoodTracker.Migrations
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("varchar(25)");
+
+                    b.Property<string>("TrustedPersonsName")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("TrustedPersonsNumber")
                         .IsRequired()
