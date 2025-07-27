@@ -78,7 +78,28 @@
                             <i class="fa-regular fa-calendar-days me-1"></i> @moodEntry.Created.ToString("MM/dd/yyyy")<br>
                             <i class="fa-regular fa-clock me-1"></i> @moodEntry.Created.ToString("HH:mm")
                         </div>
-                        <div>
+                        <div class="mood-legend-item">
+                            @switch (@moodEntry.Tag)
+                            {
+                                case MoodTagOptions.Happy: 
+                                    <span class="legend-dot happy-dot me-2"></span>
+                                    break; 
+                                case MoodTagOptions.Sad:
+                                    <span class="legend-dot sad-dot me-2"></span>
+                                    break;
+                                case MoodTagOptions.Depressed:
+                                    <span class="legend-dot depressed-dot me-2"></span>
+                                    break;
+                                case MoodTagOptions.Angry:
+                                    <span class="legend-dot angry-dot me-2"></span>
+                                    break;
+                                case MoodTagOptions.Frustrated:
+                                    <span class="legend-dot frustrated-dot me-2"></span>
+                                    break;
+                                case MoodTagOptions.Emotional:
+                                    <span class="legend-dot emotional-dot me-2"></span>
+                                    break;
+                            }
                             <span class="text-muted">@moodEntry.Tag</span>
                             <p class="mb-0">@moodEntry.Description</p>
                         </div>

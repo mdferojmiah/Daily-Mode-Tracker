@@ -32,6 +32,7 @@ builder.Services.AddHttpClient("ZenQuoteAPI", client =>
     client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IQuoteService, QuoteService>();
 
 var app = builder.Build();
 

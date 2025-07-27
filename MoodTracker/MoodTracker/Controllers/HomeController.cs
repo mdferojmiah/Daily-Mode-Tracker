@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,37 +16,35 @@ namespace MoodTracker.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IHttpClientFactory _clientFactory;
+    private readonly IQuoteService _quoteService;
     private readonly AppDbContext _context;
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IEmailService  _emailService;
-    public HomeController(IHttpClientFactory clientFactory, AppDbContext context, UserManager<User> userManager, SignInManager<User> signInManager, IEmailService emailService)
+    public HomeController(AppDbContext context, UserManager<User> userManager, SignInManager<User> signInManager, IEmailService emailService, IQuoteService quoteService)
     {
-        _clientFactory = clientFactory;
         _context = context;
         _userManager = userManager;
         _signInManager = signInManager;
         _emailService = emailService;
+        _quoteService = quoteService;
     }
 
     [Authorize]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        
+        var recentMoodEntries = await _context.MoodEntries
+            .OrderByDescending(m => m.Created)
+            .Take(5) 
+            .ToListAsync();
+        ViewBag.RecentMoodEntries = recentMoodEntries;
+        ViewBag.LayoutMoodHistory = recentMoodEntries;
         ViewBag.Date = DateTime.Now;
-        Quote? randomQuote = null;
         try
         {
-            HttpClient client = _clientFactory.CreateClient("ZenQuoteAPI");
-            HttpResponseMessage response = await client.GetAsync("/api/random");
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            List<Quote>? quotes = JsonSerializer.Deserialize<List<Quote>>(responseBody);
-            if (quotes != null)
-            {
-                randomQuote = quotes[0];
-            }
+            ViewBag.randomQuote = await _quoteService.GetRandomQuote();
         }
         catch (HttpRequestException ex)
         {
@@ -59,13 +58,6 @@ public class HomeController : Controller
         {
             TempData["ErrorMessage"] = "An unexpected error occurred.";
         }
-        var recentMoodEntries = await _context.MoodEntries
-            .OrderByDescending(m => m.Created)
-            .Take(5) 
-            .ToListAsync();
-        ViewBag.RecentMoodEntries = recentMoodEntries;
-        ViewBag.LayoutMoodHistory = recentMoodEntries;
-        ViewBag.randomQuote = randomQuote;
         return View();
     }
     
@@ -97,9 +89,12 @@ public class HomeController : Controller
                 {
                     string subject = $"Daily Mood Tracker Alert: {user.UserName} is feeling {model.Tag}";
                     string body = $"Hello {user.TrustedPersonsName ?? "Trusted Person"},\n\n" +
-                                          $"{user.UserName} has recorded a mood of '{model.Tag}' " +
+                                          $"{user.FullName} has recorded a mood of '{model.Tag}' " +
                                           $"with the description: '{model.Description}'.\n\n" +
-                                          "Please reach out to them if you are able. This is an automated message from Mood Tracker App";
+                                          "Please reach out to them if you are able. " +
+                                          "This is an automated message from Mood Tracker App.\n\n" +
+                                          "Well wishes,\n" +
+                                          "Daily Mood Tracker Team <3\n";
                     if (!string.IsNullOrEmpty(user.TrustedPersonsEmail))
                     {
                         await _emailService.SendEmail(user.TrustedPersonsEmail, subject, body);
@@ -122,13 +117,50 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> MoodTracker()
     {
-        var recentMoodEntries = await _context.MoodEntries
-            .OrderByDescending(m => m.Created)
-            .Take(5) 
-            .ToListAsync();
+        var user = await _userManager.GetUserAsync(User);
+        List<MoodEntry> allMoodEntries = new List<MoodEntry>();
+        if (user != null)
+        {
+            allMoodEntries = await _context.MoodEntries
+                .OrderByDescending(m => m.Created)
+                .ToListAsync();
+                
+        }
+        var cultureInfo = CultureInfo.CurrentCulture;
+        var calendar = cultureInfo.Calendar;
+        var currentWeek = calendar.GetWeekOfYear(DateTime.Now, cultureInfo.DateTimeFormat.CalendarWeekRule, cultureInfo.DateTimeFormat.FirstDayOfWeek);
+        
+        var entriesThisWeek = allMoodEntries.Count(e => calendar
+            .GetWeekOfYear(e.Created, cultureInfo.DateTimeFormat.CalendarWeekRule, cultureInfo.DateTimeFormat.FirstDayOfWeek) == currentWeek && e.Created.Year == DateTime.Now.Year);
+        MoodTagOptions dominantMood = MoodTagOptions.Happy;
+        if (allMoodEntries.Any())
+        {
+            dominantMood = allMoodEntries
+                .GroupBy(e => e.Tag)
+                .OrderByDescending(g => g.Count())
+                .Select(g => g.Key)
+                .FirstOrDefault(); 
+        }
+        int totalDaysInTrackingPeriod = 7;
+        var startDate = DateTime.Today.AddDays(-totalDaysInTrackingPeriod + 1);
+        var consistencyIn7Days = allMoodEntries
+            .Where(e => e.Created.Date >= startDate && e.Created.Date <= DateTime.Today)
+            .Select(e => e.Created.Date)
+            .Distinct()
+            .Count();
+        
+        var viewModel = new MoodTrackerViewModel
+        {
+            AllMoodEntries = allMoodEntries,
+            EntriesThisWeek = entriesThisWeek,
+            DominantMood = dominantMood,
+            ConsistencyIn7Days = consistencyIn7Days,
+        };
+        
+        var recentMoodEntries = allMoodEntries.Take(5);
         ViewBag.RecentMoodEntries = recentMoodEntries;
         ViewBag.LayoutMoodHistory = recentMoodEntries;
-        return View();
+        return View(viewModel);
     }
     
     [HttpGet]

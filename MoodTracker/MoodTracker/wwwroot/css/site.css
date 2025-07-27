@@ -153,7 +153,8 @@ body {
 }
 
 .happy-dot { background-color: #66bb6a; } /* Green */
-.neutral-dot { background-color: #9c27b0; } /* Purple */
-.anxious-dot { background-color: #ffeb3b; } /* Yellow */
-.sad-dot { background-color: #795548; } /* Brown/Dark Gray */
-.crisis-dot { background-color: #f44336; } /* Red */
+.depressed-dot { background-color: #9c27b0; } /* Purple */
+.angry-dot { background-color: #f44336; } /* Yellow */
+.sad-dot { background-color: #615a55; } /* Brown/Dark Gray */
+.frustrated-dot { background-color: #ffeb3b; } /* Red */
+.emotional-dot { background-color: #f436a8; }
