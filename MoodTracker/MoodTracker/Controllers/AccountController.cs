@@ -105,6 +105,7 @@ public class AccountController : Controller
             model.Birthday = user.Birthday;
         }
         var recentMoodEntries = await _context.MoodEntries
+            .Where(u => u.UserId == user!.Id)
             .OrderByDescending(m => m.Created)
             .Take(5)
             .ToListAsync();

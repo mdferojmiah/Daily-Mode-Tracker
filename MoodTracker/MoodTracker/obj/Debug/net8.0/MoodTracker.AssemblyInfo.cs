@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MoodTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+780be2beaf73a4ef4bb5032a0d10237e86bc8648")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29ac601c70d75669bc0643e6cc9ad02b6e71a9e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("MoodTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MoodTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
