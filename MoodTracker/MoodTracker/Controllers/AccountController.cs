@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoodTracker.Data;
 using MoodTracker.Models.Entities;
+using MoodTracker.Models.Enums;
 using MoodTracker.Models.ViewModels;
 
 namespace MoodTracker.Controllers;
@@ -87,22 +88,29 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        var user = await _userManager.GetUserAsync(User);
-        ViewBag.UserName = user!.UserName;
-        ViewBag.FullName = user!.FullName;
-        ViewBag.Email = user!.Email;
-        ViewBag.TrustedPersonsName = user!.TrustedPersonsName;
-        ViewBag.TrustedPersonsEmail = user!.TrustedPersonsEmail;
-        ViewBag.TrustedPersonsNumber = user!.TrustedPersonsNumber;
-        ViewBag.Gender = user!.Gender;
-        ViewBag.Birthday = user!.Birthday;
+        User? user = await _userManager.GetUserAsync(User);
+        ProfileViewModel model = new ProfileViewModel();
+        if (user == null)
+        {
+            ModelState.AddModelError(string.Empty, "Session Expired! Login again!");
+        }else
+        {
+            model.UserName = user.UserName;
+            model.FullName = user.FullName;
+            model.Email = user.Email;
+            model.TrustedPersonsName = user.TrustedPersonsName;
+            model.TrustedPersonsEmail = user.TrustedPersonsEmail;
+            model.TrustedPersonsNumber = user.TrustedPersonsNumber;
+            model.Gender = user.Gender;
+            model.Birthday = user.Birthday;
+        }
         var recentMoodEntries = await _context.MoodEntries
             .OrderByDescending(m => m.Created)
             .Take(5)
             .ToListAsync();
         ViewBag.RecentMoodEntries = recentMoodEntries;
         ViewBag.LayoutMoodHistory = recentMoodEntries;
-        return View();
+        return View(model);
     }
     
     //GET: account/changeInformation

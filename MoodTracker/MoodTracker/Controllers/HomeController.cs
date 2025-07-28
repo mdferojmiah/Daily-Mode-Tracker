@@ -34,8 +34,13 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        
+        User? user =  await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            ModelState.AddModelError(string.Empty, "Session expired! Try login again!");
+        }
         var recentMoodEntries = await _context.MoodEntries
+            .Where(u => u.UserId == user!.Id)
             .OrderByDescending(m => m.Created)
             .Take(5) 
             .ToListAsync();
@@ -65,6 +70,11 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> Index(MoodEntryViewModel model)
     {
+        User? user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            ModelState.AddModelError(string.Empty, "Session expired! Try login again!");
+        }
         if (ModelState.IsValid)
         {
             var moodEntry = new MoodEntry
@@ -73,7 +83,7 @@ public class HomeController : Controller
                 Tag = model.Tag,
                 Description = model.Description,
                 Created = DateTime.Now,
-                
+                UserId = user!.Id,
             };
             await _context.AddAsync(moodEntry);
             var result = await _context.SaveChangesAsync();
@@ -82,29 +92,26 @@ public class HomeController : Controller
                 TempData["Success"] = "Mood entry has been added successfully";
             }
             //sending emails if mood is bad
-            User? user = await _userManager.GetUserAsync(User);
-            if (user != null)
+            if (model.Tag == MoodTagOptions.Depressed || model.Tag == MoodTagOptions.Frustrated || model.Tag == MoodTagOptions.Sad)
             {
-                if (model.Tag == MoodTagOptions.Depressed || model.Tag == MoodTagOptions.Frustrated)
+                string subject = $"Daily Mood Tracker Alert: {user.FullName} is feeling {model.Tag}";
+                string body = $"Hello {user.TrustedPersonsName ?? "Trusted Person"},\n\n" +
+                              $"{user.FullName} has recorded a mood of '{model.Tag}' " +
+                              $"with the description: '{model.Description}'.\n\n" +
+                              "Please reach out to them if you are able. " +
+                              "This is an automated message from Mood Tracker App.\n\n" +
+                              "Well wishes,\n" +
+                              "Daily Mood Tracker Team <3\n";
+                if (!string.IsNullOrEmpty(user.TrustedPersonsEmail))
                 {
-                    string subject = $"Daily Mood Tracker Alert: {user.UserName} is feeling {model.Tag}";
-                    string body = $"Hello {user.TrustedPersonsName ?? "Trusted Person"},\n\n" +
-                                          $"{user.FullName} has recorded a mood of '{model.Tag}' " +
-                                          $"with the description: '{model.Description}'.\n\n" +
-                                          "Please reach out to them if you are able. " +
-                                          "This is an automated message from Mood Tracker App.\n\n" +
-                                          "Well wishes,\n" +
-                                          "Daily Mood Tracker Team <3\n";
-                    if (!string.IsNullOrEmpty(user.TrustedPersonsEmail))
-                    {
-                        await _emailService.SendEmail(user.TrustedPersonsEmail, subject, body);
-                    }
+                    await _emailService.SendEmail(user.TrustedPersonsEmail, subject, body);
                 }
             }
             return RedirectToAction(nameof(Index));
         }
         ModelState.AddModelError("", "Data can not be Added");
         var recentMoodEntries = await _context.MoodEntries
+            .Where(u => u.UserId == user!.Id)
             .OrderByDescending(m => m.Created)
             .Take(5) 
             .ToListAsync();
@@ -122,6 +129,7 @@ public class HomeController : Controller
         if (user != null)
         {
             allMoodEntries = await _context.MoodEntries
+                .Where(u => u.UserId == user!.Id)
                 .OrderByDescending(m => m.Created)
                 .ToListAsync();
                 
@@ -130,7 +138,8 @@ public class HomeController : Controller
         var calendar = cultureInfo.Calendar;
         var currentWeek = calendar.GetWeekOfYear(DateTime.Now, cultureInfo.DateTimeFormat.CalendarWeekRule, cultureInfo.DateTimeFormat.FirstDayOfWeek);
         
-        var entriesThisWeek = allMoodEntries.Count(e => calendar
+        var entriesThisWeek = allMoodEntries
+            .Count(e => calendar
             .GetWeekOfYear(e.Created, cultureInfo.DateTimeFormat.CalendarWeekRule, cultureInfo.DateTimeFormat.FirstDayOfWeek) == currentWeek && e.Created.Year == DateTime.Now.Year);
         MoodTagOptions dominantMood = MoodTagOptions.Happy;
         if (allMoodEntries.Any())

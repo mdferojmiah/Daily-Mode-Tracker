@@ -31,4 +31,6 @@ public class User: IdentityUser<Guid>
     
     public GenderOptions?  Gender { get; set; }
     public DateTime? Birthday { get; set; }
+    //navigation property
+    public ICollection<MoodEntry> MoodEntries { get; set; } = new List<MoodEntry>();
 }

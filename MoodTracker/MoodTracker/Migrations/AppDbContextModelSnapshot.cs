@@ -135,7 +135,12 @@ namespace MoodTracker.Migrations
                     b.Property<int>("Tag")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("MoodEntries");
                 });
@@ -310,6 +315,22 @@ namespace MoodTracker.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MoodTracker.Models.Entities.MoodEntry", b =>
+                {
+                    b.HasOne("MoodTracker.Models.Entities.User", "User")
+                        .WithMany("MoodEntries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MoodTracker.Models.Entities.User", b =>
+                {
+                    b.Navigation("MoodEntries");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,10 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-builder.Services.AddIdentity<User, UserRole>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = true;
-    })
+builder.Services.AddIdentity<User, UserRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(options =>

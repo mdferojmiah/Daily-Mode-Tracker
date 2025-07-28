@@ -11,7 +11,7 @@ using MoodTracker.Data;
 namespace MoodTracker.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250725121049_Initial")]
+    [Migration("20250728140239_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -121,6 +121,33 @@ namespace MoodTracker.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MoodTracker.Models.Entities.MoodEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("Tag")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MoodEntries");
+                });
+
             modelBuilder.Entity("MoodTracker.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -180,11 +207,17 @@ namespace MoodTracker.Migrations
 
                     b.Property<string>("TrustedPersonsEmail")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<string>("TrustedPersonsName")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("TrustedPersonsNumber")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("tinyint(1)");
@@ -285,6 +318,22 @@ namespace MoodTracker.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MoodTracker.Models.Entities.MoodEntry", b =>
+                {
+                    b.HasOne("MoodTracker.Models.Entities.User", "User")
+                        .WithMany("MoodEntries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MoodTracker.Models.Entities.User", b =>
+                {
+                    b.Navigation("MoodEntries");
                 });
 #pragma warning restore 612, 618
         }
